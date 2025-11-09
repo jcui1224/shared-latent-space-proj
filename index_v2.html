@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            background-color: #f5f5f5;
+        }
+
+        a {
+            color: #4183C4;
+            text-decoration: none;
+        }
+
+        p {
+            line-height: 20px;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        #abs {
+            text-align: center;
+        }
+
+        #abs .descriptor {
+            display: none;
+        }
+
+        #abs h1.title {
+            margin: .5em 0 .5em 20px;
+            font-size: x-large;
+            font-weight: bold;
+            line-height: 120%;
+        }
+
+        #abs .authors {
+            margin: .5em 0 .5em 20px;
+            font-size: medium;
+            line-height: 150%;
+        }
+
+        #abs .authors a {
+            font-size: medium;
+        }
+
+        #abs p {
+            text-align: justify;
+        }
+
+        .bib {
+            font-size: small;
+        }
+
+        .figure {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+    <div id="abs">
+        <h1>Joint Latent Space EBM Prior Model for Multi-layer Generator</h1>
+        <div class="authors"><a href="mailto:jcui7@stevens.edu">Jiali Cui</a><sup>1</sup>, <a href="mailto:ywu@stat.ucla.edu">Ying Nian Wu</a><sup>2</sup>, <a href="mailto:than6@stevens.edu">Tian Han</a><sup>1</sup>,</div>
+        <div class="inst">
+            <sup>1</sup> Stevens Institute of Technology, SIT<br>
+            <sup>2</sup> University of California, Los Angeles, UCLA<br>
+        </div>
+        <h2>Abstract</h2>
+        <p> This paper studies the fundamental problem of learning multi-layer generator models. The multi-layer generator model builds multiple layers of latent variables as a prior model on top of the generator, which benefits learning complex data distribution and hierarchical representations. However, such a prior model usually focuses on modeling inter-layer relations between latent variables by assuming non-informative (conditional) Gaussian distributions, which can be limited in model expressivity. To tackle this issue and learn more expressive prior models, we propose an energy-based model (EBM) on the joint latent space over all layers of latent variables with the multi-layer generator as its backbone. Such joint latent space EBM prior model captures the intra-layer contextual relations at each layer through layer-wise energy terms, and latent variables across different layers are jointly corrected. We develop a joint training scheme via maximum likelihood estimation (MLE), which involves Markov Chain Monte Carlo (MCMC) sampling for both prior and posterior distributions of the latent variables from different layers. To ensure efficient inference and learning, we further propose a variational training scheme where an inference model is used to amortize the costly posterior MCMC sampling. Our experiments demonstrate that the learned model can be expressive in generating high-quality images and capturing hierarchical features for better outlier detection.</p>
+    </div>
+
+    <hr>
+    <h2>Paper</h2>
+    comming soon
+<!--    The publication can be obtained <a href="https://arxiv.org/abs/2006.08205">here</a>.-->
+
+<!--    <pre class="bib">-->
+<!--@article{pang2020ebmprior,-->
+<!--  title={Learning Latent Space Energy-Based Prior Model},-->
+<!--  author={Pang, Bo and Han, Tian and Nijkamp, Erik and Zhu, Song-Chun and Wu, Ying Nian},-->
+<!--  journal={NeurIPS},-->
+<!--  year={2020}-->
+<!--}-->
+<!--    </pre>-->
+
+
+<!--    <h2>Contributions</h2>-->
+<!--    <p>(1) We propose a generator model with a latent space energy-based prior model by following the empirical Bayes philosophy.<br>-->
+<!--(2) We develop the maximum likelihood learning algorithm based on MCMC sampling of the latent vector from the prior and posterior distributions.<br>-->
+<!--(3) We further develop an efficient modification of MLE learning based on short-run MCMC sampling.<br>-->
+<!--(4) We provide theoretical foundation for learning driven by short-run MCMC.<br>-->
+<!--(5) We provide strong empirical results to corroborate the proposed method.</p>-->
+<!--    <hr>-->
+
+    <hr>
+    <h2>Code</h2>
+<!--    The code can be obtained <a href="https://github.com/jcui1224/hierarchical-joint-ebm">here</a>.-->
+    comming soon
+
+    <hr>
+
+    <h2>Experiments</h2>
+<!--    <p>-->
+<!--        Experiment 1: <a href="#exp-1">Image Modelling</a>-->
+<!--        Experiment 2: <a href="#exp-2">Hierarchical Representation</a>-->
+<!--    </p>-->
+
+<!--    Experiment 3: <a href="#exp-3">Analysis of Latent Space</a>-->
+    <h3 id="exp-1">Experiment 1: Image Modelling</h3>
+    <h4>Experiment 1.1: Joint training</h4>
+    <p>
+        The proposed EBM prior model can be jointly trained with generation model (MCMC posterior) and inference model (variational learning).
+        If the model is well-trained, the multi-layer EBM prior model should render expressive prior distribution leading to realistic synthesis.
+        We recruit Fréchet Inception Distance (FID) to quantitatively evaluate the generation quality and compare with the baseline models that assume standard Gassuain prior and informative prior distribution.
+    </p>
+    <div class="figure">
+        <img src="./figures/exp1-joint-training/cvpr2023-exp1-table.png" width="400" style="margin:10px">
+    </div>
+
+    <p>
+        We further compare two posterior sampling schemes: MCMC posterior vs. Inference model.
+        We observe that the MCMC posterior sampling can be more accurate but less efficient, while inference model is efficient but can be less accurate.
+    </p>
+    <div class="figure">
+        <img src="./figures/exp1-joint-training/cvpr2023-exp1-mcmc-vs-inf.png" width="400" style="margin:10px">
+    </div>
+
+
+    <h4>Experiment 1.2: Deep hierarchical model</h4>
+    <div class="figure">
+        <img src="./figures/exp2-nvae/cvpr2023-exp2-celeba256.png" width="800" style="margin:10px">
+    </div>
+
+    <p>
+        The proposed EBM prior model can also be applied to deep hierarchical models via two-stage training scheme, in which the posterior samples can be obtained from pre-trained inference model,
+        while prior samples are obtained via <a href="https://github.com/NVlabs/VAEBM">reparametrized sampling</a> scheme.
+        We consider <a href="https://github.com/NVlabs/NVAE">NVAE</a> as our backbone model for the first stage training and train our joint latent space EBM prior model in the second stage.
+        We show the quantitative result in tables, and qualitative results can be found <a href="#additional-results">here</a>.
+    </p>
+
+    <div class="figure">
+        <img src="./figures/exp2-nvae/cvpr2023-exp2-table1.png" width="200" style="margin:10px">
+        <img src="./figures/exp2-nvae/cvpr2023-exp2-table2.png" width="400" style="margin:10px">
+<!--        <p class="caption"><b>Table</b> Image synthesis with NVAE backbone model on CelebA-HQ \(256 \times 256\). Left: temperature=0.7. Right: temperature=1.0.</p>-->
+    </div>
+
+    <h3 id="exp-2">Experiment 2: Hierarchical Representation</h3>
+    <h4>Experiment 2.1: Hierarchical sampling</h4>
+    <p>
+        To examine our model in learning hierarchical representation, we first employ hierarchical sampling to illustrate the learned representation at different layers.
+        In particular, we first sample one group of latent vectors from EBM prior and hold them as fixed constants,
+        then we randomly sample multiple groups of latent vectors to replace the fixed latent vectors at different layers.
+        This allows us to visualize the variation in representation across layers. We use BIVA as our backbone model and train our joint EBM prior via the two-stage training scheme.
+        We show the hierarchical sampling results in Figure.2. More results can be found <a href="#additional-results-hs">here</a>
+    </p>
+    <div class="figure">
+        <img src="./figures/exp3-hierarchical-rep/hs_EBM_low_independent.png" width="200" style="margin:10px">
+        <img src="./figures/exp3-hierarchical-rep/hs_EBM_mid_independent.png" width="200" style="margin:10px">
+        <img src="./figures/exp3-hierarchical-rep/hs_EBM_top_independent.png" width="200" style="margin:10px">
+        <img src="./figures/exp3-hierarchical-rep/hs_BIVA_low.png" width="200" style="margin:10px">
+        <img src="./figures/exp3-hierarchical-rep/hs_BIVA_mid.png" width="200" style="margin:10px">
+        <img src="./figures/exp3-hierarchical-rep/hs_BIVA_top.png" width="200" style="margin:10px">
+        <p class="caption"><b>Figure 2:</b> Hierarchical sampling. Top: ours. Bottom: BIVA.</p>
+    </div>
+
+
+    <h4>Experiment 2.2: Out-of-distribution detection</h4>
+    <p>
+        We also conduct out-of-distribution (OOD) detection to further evaluate the hierarchical representations.
+        Typically, low-level representations (e.g., edges, corners) can be shared across data which in turn leads to high-confidence reconstructions for OOD examples,
+        while high-level semantic ones have fewer correlations across different data and shall be more discriminative for OOD detection.
+        We use the decision function defined below and draw a histogram of density with increasing K.
+    </p>
+
+    <div class="figure">
+        <img src="./figures/exp3-hierarchical-rep/cvpr2023-exp3-eqn20.png" width="600" style="margin:10px">
+    </div>
+
+    <p>
+        It can be seen that as K increases, relatively lower log-likelihoods are assigned to OOD data, which in turn renders better detection performance (higher AUROC and AUPRC).
+        This further verifies that the hierarchical representations can be learned within our multi-layer structure.
+    </p>
+
+    <div class="figure">
+<!--        <img src="./figures/exp3-hierarchical-rep/hierarchical-recon.png" width="200" style="margin:10px">-->
+        <img src="./figures/exp3-hierarchical-rep/ood_density_v4.png" width="800" style="margin:10px">
+        <p class="caption"><b>Figure 3:</b> Histogram of density with increasing K.</p>
+    </div>
+
+
+    <h3 id="exp-3">Experiment 3: Analysis of Latent Space</h3>
+    <h4>Experiment 3.1: Long-run Langevin transition</h4>
+    <p>
+        If the EBM is well-learned, the energy prior should naturally render local modes of the energy function,
+        and traversing these local modes should present realistic synthesized examples and steady-state energy scores.
+    </p>
+    <div class="figure">
+        <img src="./figures/exp4-latentspace/100_imgs.png" width="600" style="margin:10px">
+        <img src="./figures/exp4-latentspace/100_en.png" width="600" style="margin:10px">
+        <img src="./figures/exp4-latentspace/2500_imgs.png" width="600" style="margin:10px">
+        <img src="./figures/exp4-latentspace/2500_en.png" width="600" style="margin:10px">
+        <p class="caption"><b>Figure 2:</b> Trajectory in data space and energy profile in Langevin transition.
+            Top: Langevin transition with 100 steps. Bottom: Langevin transition with 2500 steps.</p>
+    </div>
+
+<!--    <h4>Experiment 3.2: Anomaly detection</h4>-->
+<!--    <p>-->
+<!--        We further evaluate how our joint EBM prior model could benefit the anomaly detection (AD) task. We use un-normalized log-posterior as our EBM-->
+<!--        decision function and train our model on MNIST with each class held out as an anomalous class. The results are shown in the following table.-->
+<!--    </p>-->
+<!--    <div class="figure">-->
+<!--        <img src="./figures/exp4-latentspace/cvpr2023-exp4-ad.png" width="600" style="margin:10px">-->
+<!--    </div>-->
+
+    <hr>
+    <h2>Additional Results</h2>
+    <h3 id="additional-results">Experiment 1: Image Modelling</h3>
+
+    <div class="figure">
+        <img src="./figures/exp2-nvae/cifar10_HVAE.png" width="300" style="margin:10px">
+        <img src="./figures/exp2-nvae/cifar10_HVAE_ebm.png" width="300" style="margin:10px">
+        <img src="./figures/exp2-nvae/cifar10_biva.png" width="300" style="margin:10px">
+        <img src="./figures/exp2-nvae/cifar10_biva_ebm.png" width="300" style="margin:10px">
+        <p class="caption"><b>Figure 2:</b> Image synthesis with backbone model HVAE (top) and BIVA (bottom). Left: backbone model. Right: ours.</p>
+    </div>
+
+    <div class="figure">
+        <img src="./figures/exp2-nvae/cvpr2023-exp2-cifar10_nvae.png" width="300" style="margin:10px">
+        <img src="./figures/exp2-nvae/cvpr2023-exp2-cifar10_ours.png" width="300" style="margin:10px">
+        <img src="./figures/exp2-nvae/cvpr2023-exp2-cifar10_mcmc1.png" width="300" style="margin:10px">
+        <img src="./figures/exp2-nvae/cvpr2023-exp2-cifar10_mcmc2.png" width="300" style="margin:10px">
+        <p class="caption"><b>Figure 2:</b> Image synthesis and Langevin transition with NVAE backbone model on CIFAR-10 (\(32 \times 32\)). Left: NVAE. Right: ours.</p>
+    </div>
+
+    <div class="figure">
+        <img src="./figures/exp2-nvae/cvpr2023-exp2-church_nave.png" width="300" style="margin:10px">
+        <img src="./figures/exp2-nvae/cvpr2023-exp2-church_ours.png" width="300" style="margin:10px">
+        <img src="./figures/exp2-nvae/cvpr2023-exp2-church_mcmc.png" width="600" style="margin:10px">
+        <p class="caption"><b>Figure 1:</b> Image synthesis and Langevin transition with NVAE backbone model on LSUN-Church (\(64 \times 64\)). Left: NVAE. Right: ours.</p>
+    </div>
+
+    <div class="figure">
+        <img src="./figures/exp2-nvae/cvpr2023-exp2-celebahq256_ours_0.7.png" width="300" style="margin:10px">
+        <img src="./figures/exp2-nvae/cvpr2023-exp2-celebahq256_ours_1.0.png" width="300" style="margin:10px">
+        <img src="./figures/exp2-nvae/cvpr2023-exp2-celeba256_mcmc.png" width="600" style="margin:10px">
+        <p class="caption"><b>Figure 1:</b> Image synthesis and Langevin transition with NVAE backbone model on CelebA-HQ (\(256 \times 256\)). Left: temperature=0.7. Right: temperature=1.0.</p>
+    </div>
+
+    <h3 id="additional-results-hs">Experiment 2: Hierarchical Representation</h3>
+    <div class="figure">
+        <img src="./figures/exp3-hierarchical-rep/nvae_hs_top.png" width="600" style="margin:10px">
+        <img src="./figures/exp3-hierarchical-rep/nvae_hs_mid.png" width="600" style="margin:10px">
+        <img src="./figures/exp3-hierarchical-rep/nvae_hs_bot.png" width="600" style="margin:10px">
+        <p class="caption"><b>Figure 2:</b> Hierarchical sampling with NVAE backbone model.</p>
+    </div>
+
+<!--    <h4>Hierarchical reconstruction</h4>-->
+<!--    <p>-->
+<!--        We conduct hierarchical reconstruction by using the above decision function with increasing K.-->
+<!--        We observe that the details in reconstructions can be gradually replaced by common features as more layers of latent variables are sampled from the prior distribution.-->
+<!--        For example, the sunglass first becomes a more common glass and then eventually disappears.-->
+<!--        This further suggests that our model carries different levels of abstract representations within the hierarchical structure.-->
+<!--    </p>-->
+<!--    <div class="figure">-->
+<!--&lt;!&ndash;        <img src="./figures/exp3-hierarchical-rep/hierarchical-recon.png" width="200" style="margin:10px">&ndash;&gt;-->
+<!--        <img src="./figures/exp3-hierarchical-rep/hierarchical-recon.png" width="600" style="margin:10px">-->
+<!--&lt;!&ndash;        <p class="caption"><b>Figure 3:</b> Hierarchical reconstruction with BIVA backbone model.</p>&ndash;&gt;-->
+<!--    </div>-->
+<!--    <div class="figure">-->
+<!--        <img src="./figure/image/fid/fid_table.png" width="800" style="margin:10px">-->
+<!--    </div>-->
+
+
+<!--    <h3>Experiment 2: Text</h3>-->
+<!--    <p> To evaluate the quality of the generated samples, we recruit Forward Perplexity (FPPL) and Reverse Perplexity (RPPL). FPPL is the perplexity of the generated samples evaluated under a language model trained with real data and measures the fluency of the synthesized sentences. RPPL is the perplexity of real data (the test data partition) computed under a language model trained with the model-generated samples. Prior work employs it to measure the distributional coverage of a learned model, \(p_\theta(x)\) in our case, since a model with a mode-collapsing issue results in a high RPPL. FPPL and RPPL are displayed in Table 2. Our model outperforms all the baselines on the two metrics, demonstrating the high fluency and diversity of the samples from our model. </p>-->
+<!--    <div class="figure">-->
+<!--        <img src="./figure/text/text_table.png" width="800" style="margin:10px">-->
+<!--    </div>-->
+
+
+<!--    <h3>Experiment 3: Analysis of latent space</h3>-->
+<!--    <p> We examine the exponential tilting of the reference prior \(p_0(z)\) through Langevin samples initialized from \(p_0(z)\) with target distribution \(p_\alpha(z)\). As the reference distribution \(p_0(z)\) is in the form of an isotropic Gaussian, we expect the energy-based correction \(f_\alpha\) to tilt \(p_0\) into an irregular shape like some shallow local modes. Therefore, the trajectory of a Markov chain initialized from the reference distribution \(p_0(z)\) with well-learned target \(p_\alpha(z)\) should depict the transition towards synthesized examples of high quality while the energy fluctuates around some constant. Figure 2 depicts such transitions for CelebA, which is based on a model trained with \(K_0 = 40\) steps. The quality of synthesis improves significantly with increasing number of steps.-->
+<!-- </p>-->
+<!--    <div class="figure">-->
+<!--        <img src="./figure/transition/image_transition.png" width="800" style="margin:10px">-->
+<!--        <p class="caption"><b>Figure 2:</b> Transition of Markov chains initialized from \(p_0(z)\) towards \(\tilde{p}_{\alpha}(z)\) for \(K_0'=100\) steps. Top: Trajectory in the CelebA data-space. Bottom: Energy profile over time.</p>-->
+<!--    </div>-->
+
+
+<!--    <h3>Experiment 4: Anomaly detection</h3>-->
+<!--    <p> If the generator and EBM are well learned, then the posterior \(p_\theta(z|x)\) would form a discriminative latent space that has separated probability densities for normal and anomalous data. Samples from such latent space can then be used as discriminative features to detect anomalies. We perform posterior sampling on the learned model to obtain the latent samples, and use the unnormalized log-posterior \(\log p_\theta(x, z)\) as our decision function. </p>-->
+<!--    <div class="figure">-->
+<!--        <img src="./figure/anomaly/anomaly_table.png" width="800" style="margin:10px">-->
+<!--    </div>-->
+
+
+<!--    <h3>Experiment 5: Scalability</h3>-->
+<!--    <p> We have also explored avenues to improve training speed and found that a PyTorch extension, NVIDIA Apex, is able to improve our model training 2.5 times. We test our method with Apex training on a larger scale dataset, CelebA \( (128 \times 128 \times 3) \). The learned model is able to synthesize examples with high fidelity. </p>-->
+<!--    <div class="figure">-->
+<!--        <img src="./figure/image/celeba_large/celeba128_synthesis.png" width="600" style="margin:10px">-->
+<!--    </div>-->
+
+
+<!--    <hr>-->
+<!--    <h2>Acknowledgements</h2>-->
+<!--    <p>The work is supported by NSF DMS-2015577, DARPA XAI N66001-17-2-4029, ARO W911NF1810296, ONR MURI N00014-16-1-2007, and XSEDE grant ASC170063. We thank NVIDIA for the donation of Titan V GPUs.</p>-->
+</div>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        body {
+            background-color: #f5f5f5;
+            /*background-color: #C0C0C0;*/
+        }
+
+        a {
+            color: #4183C4;
+            text-decoration: none;
+        }
+
+        p {
+            line-height: 20px;
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        #abs {
+            text-align: center;
+        }
+
+        #abs .descriptor {
+            display: none;
+        }
+
+        #abs h1.title {
+            margin: .5em 0 .5em 20px;
+            font-size: x-large;
+            font-weight: bold;
+            line-height: 120%;
+        }
+
+        #abs .authors {
+            margin: .5em 0 .5em 20px;
+            font-size: medium;
+            line-height: 150%;
+        }
+
+        #abs .authors a {
+            font-size: larger;
+        }
+
+        #abs p {
+            text-align: justify;
+        }
+
+        #links {
+            margin: 1.5em 0 1.5em 20px;
+            font-size: medium;
+            line-height: 150%;
+            /*padding:8px 0px;*/
+        }
+
+        #links a {
+            font-size: x-large;
+        }
+
+        .bib {
+            font-size: large;
+        }
+
+        .figure {
+            text-align: center;
+        }
+    </style>
+    <link rel="stylesheet" href="./static/fonts/fontawesome/css/fontawesome.min.css"/>
+    <link rel="stylesheet" href="./static/fonts/fontawesome/css/brands.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="./static/fonts/fontawesome/css/solid.css" rel="stylesheet"/>
+    <!--&lt;!&ndash;    <link rel="stylesheet" href="./static/css/bulma.min.css" />&ndash;&gt;-->
+    <!--&lt;!&ndash;    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css" />&ndash;&gt;-->
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css"/>
+    <!--    <link rel="stylesheet" href="./static/css/fonts.css" />-->
+    <link rel="stylesheet" href="./static/css/academicons.min.css"/>
+    <link rel="stylesheet" href="./static/css/index.css"/>
+    <!--&lt;!&ndash;    <link rel="icon" href="./static/images/favicon.ico" />&ndash;&gt;-->
+
+    <script src="./static/js/jquery.min.js"></script>
+    <!--    <script src="./static/js/bulma-carousel.min.js"></script>-->
+    <!--    <script src="./static/js/bulma-slider.min.js"></script>-->
+    <!--    <script src="./static/js/index.js"></script>-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+</head>
+<body>
+
+<div class="content">
+    <div id="abs">
+        <h1>Learning Joint Latent Space EBM Prior Model for Multi-layer Generator</h1>
+        <div class="authors"><a href="mailto:jcui7@stevens.edu">Jiali Cui</a><sup>1</sup>, <a
+                href="http://www.stat.ucla.edu/~ywu/">Ying Nian Wu</a><sup>2</sup>, <a href="https://thanacademic.github.io/">Tian
+            Han</a><sup>1</sup>,
+        </div>
+        <div class="inst">
+            <sup>1</sup> Stevens Institute of Technology, SIT<br>
+            <sup>2</sup> University of California, Los Angeles, UCLA<br>
+        </div>
+
+        <div id="links">
+            <!-- Arxiv PDF link -->
+            <span class="link-block", style="margin-right: 40px">
+                <a href="static/pdfs/Cui_Learning_Joint_Latent_Space_EBM_Prior_Model_for_Multi-Layer_Generator_CVPR_2023_paper.pdf" target="_blank"
+                   class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <i class="fas fa-file-pdf"></i>
+                </span>
+                <span>Paper</span>
+              </a>
+          </span>
+
+            <!-- Supplementary PDF link -->
+            <span class="link-block", style="margin-right: 40px">
+              <a href="static/pdfs/Cui_Learning_Joint_Latent_CVPR_2023_supplemental.pdf" target="_blank"
+                 class="external-link button is-normal is-rounded is-dark">
+              <span class="icon">
+                <i class="fas fa-file-pdf"></i>
+              </span>
+              <span>Supplementary</span>
+            </a>
+          </span>
+
+            <!-- Github link -->
+            <span class="link-block", style="margin-right: 40px">
+            <a href="https://github.com/jcui1224/hierarchical-joint-ebm" target="_blank"
+               class="external-link button is-normal is-rounded is-dark">
+            <span class="icon">
+              <i class="fab fa-github"></i>
+            </span>
+            <span>Code</span>
+          </a>
+        </span>
+
+            <!-- ArXiv abstract Link -->
+            <span class="link-block", style="margin-right: 40px">
+          <a href="https://arxiv.org/abs/2306.06323" target="_blank"
+             class="external-link button is-normal is-rounded is-dark">
+              <span class="icon">
+                <i class="fas fa-file-pdf"></i>
+              </span>
+          <span>ArXiv</span>
+        </a>
+      </span>
+        </div>
+
+        <h2>Abstract</h2>
+        <p> This paper studies the fundamental problem of learning multi-layer generator models. The multi-layer
+            generator model builds multiple layers of latent variables as a prior model on top of the generator, which
+            benefits learning complex data distribution and hierarchical representations. However, such a prior model
+            usually focuses on modeling inter-layer relations between latent variables by assuming non-informative
+            (conditional) Gaussian distributions, which can be limited in model expressivity. To tackle this issue and
+            learn more expressive prior models, we propose an energy-based model (EBM) on the joint latent space over
+            all layers of latent variables with the multi-layer generator as its backbone. Such joint latent space EBM
+            prior model captures the intra-layer contextual relations at each layer through layer-wise energy terms, and
+            latent variables across different layers are jointly corrected. We develop a joint training scheme via
+            maximum likelihood estimation (MLE), which involves Markov Chain Monte Carlo (MCMC) sampling for both prior
+            and posterior distributions of the latent variables from different layers. To ensure efficient inference and
+            learning, we further propose a variational training scheme where an inference model is used to amortize the
+            costly posterior MCMC sampling. Our experiments demonstrate that the learned model can be expressive in
+            generating high-quality images and capturing hierarchical features for better outlier detection.</p>
+    </div>
+
+    <hr>
+    <pre class="bib">
+    @InProceedings{Cui_2023_CVPR,
+        author    = {Cui, Jiali and Wu, Ying Nian and Han, Tian},
+        title     = {Learning Joint Latent Space EBM Prior Model for Multi-Layer Generator},
+        booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+        month     = {June},
+        year      = {2023},
+        pages     = {3603-3612}
+    }
+    </pre>
+    <hr>
+
+    <div class="container">
+        <h2 class="title">Poster</h2>
+        <iframe src="static/pdfs/CVPR2023_Poster.pdf" width="100%" height="900"></iframe>
+    </div>
+    <hr>
+</div>
+<!--<section class="hero is-small is-light">-->
+<!--<div class="hero-body">-->
+<!--<div class="container">-->
+<!--  <h2 class="title">Poster</h2>-->
+<!--  <iframe  src="static/pdfs/CVPR2023_Poster.pdf" width="100%" height="600"></iframe>-->
+<!--  </div>-->
+<!--</div>-->
+<!--</section>-->
+</body>
+</html>
